@@ -1,0 +1,145 @@
+GET http://localhost:3000/students
+
+###
+
+GET http://localhost:3000/students/1
+
+###
+
+POST http://localhost:3000/subjects HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"English",
+    "code":"eng-bst1",
+    "unit":2
+}
+
+###
+PUT http://localhost:3000/students/1
+Content-Type: application/json
+
+{
+    "name":"juan",
+    "age":45,
+    "address":"sa puso mo"
+}
+###
+GET http://localhost:3000/subjects
+
+###
+GET http://localhost:3000/subjects/3
+
+###
+DELETE  http://localhost:3000/subjects/2
+
+###
+PUT  http://localhost:3000/subjects/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"English",
+    "code":"eng-bst2",
+    "unit":3
+}
+
+
+
+
+
+###
+GET http://localhost:3000/professors
+
+###
+POST http://localhost:3000/professors
+Content-Type: application/json
+
+{
+    "name":"Gelo"
+}
+
+###
+PUT http://localhost:3000/professors/2
+Content-Type: application/json
+
+{
+    "name":"Juan"
+}
+
+
+###
+DELETE http://localhost:3000/professors/2
+
+### COURSE
+GET http://localhost:3000/courses
+
+###
+POST http://localhost:3000/courses
+Content-Type: application/json
+
+{
+    "name":"BSIT",
+    "code":"BSIT"
+}
+
+###
+PUT http://localhost:3000/courses/1
+Content-Type: application/json
+
+{
+    "name":"BSIT 4",
+    "code":"BSIT 4"
+}
+
+
+###
+DELETE http://localhost:3000/courses/2
+###
+GET http://localhost:3000/courses/1
+
+
+### SECTION
+GET http://localhost:3000/sections
+
+###
+POST http://localhost:3000/sections
+Content-Type: application/json
+
+{
+    "name":"a",
+    "code":"IV-a",
+    "adviser_id":1,
+    "course_id":1
+}
+
+###
+PUT http://localhost:3000/sections/1
+Content-Type: application/json
+
+{
+    "name":"BSIT 4",
+    "code":"BSIT 4"
+}
+
+
+###
+DELETE http://localhost:3000/sections/2
+###
+GET http://localhost:3000/sections/1
+
+
+### section subject
+POST http://localhost:3000/subjects/section/1
+Content-Type: application/json
+
+{
+    "subject_id":4,
+    "start":"08:00:00",
+    "end":"12:00:00",
+    "day":"MONDAY,TUESDAY,FRIDAY",
+    "course_id":1,
+    "prof_id":1
+}
+
+###
+GET  http://localhost:3000/subjects/q/section
