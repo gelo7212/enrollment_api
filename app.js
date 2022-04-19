@@ -13,6 +13,8 @@ import subjectRouter from './routes/subjects.js';
 import professorRouter from './routes/professors.js';
 import coursesRouter from './routes/courses.js';
 import sectionRouter from './routes/sections.js';
+import authRouter from './routes/auth.js';
+import { isAuthenticated } from './functions/jwt.js';
 
 // import from './routes/student'; './routes/index'; './routes/student';
 
@@ -28,7 +30,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use(isAuthenticated)
 app.use('/students', studentRouter);
 app.use('/subjects', subjectRouter);
 app.use('/professors', professorRouter);

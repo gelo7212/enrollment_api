@@ -29,9 +29,27 @@ class Section_Subject extends Database {
         })
         return query;
     }
-    deleteByID() {
+    delete(data = {
+        idsection_subject: String,
+        start: String,
+        end: String,
+        day: String,
+        course_id: Number,
+        subject_id: Number,
+        section_id: Number,
+        prof_id: Number,
+    }) {
         let table = Section_Subject_Model.table;
-        return this.database().from(table).delete().where(Section_Subject_Model.idsection_subject, 'LIKE', this.idsection_subject)
+        Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
+        let keys = Object.keys(this).map((key) => key);
+        let query = this.database().from(table).delete();
+        keys.forEach((v, i) => {
+            if (i == 0)
+                query.where(v, data[v], this[v])
+            else
+                query.andWhere(v, data[v], this[v])
+        })
+        return query;
     }
     viewBy(data = {
         idsection_subject: String,

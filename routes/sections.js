@@ -12,10 +12,11 @@ router.route('/')
         let idsection = req.query.idsection;
         let name = req.query.name;
         let code = req.query.code;
+        let year = req.query.year;
         let adviser_id = req.query.adviser_id;
         let course_id = req.query.course_id;
 
-        let section = new Section(idsection, name, code, adviser_id, course_id);
+        let section = new Section(idsection, name, code, year, adviser_id, course_id);
         let q = section.viewBy({
             idsection: "LIKE",
             name: "LIKE",
@@ -42,9 +43,10 @@ router.route('/')
     .post(function (req, res, next) {
         let name = req.body.name;
         let code = req.body.code;
+        let year = req.body.year;
         let adviser_id = req.body.adviser_id;
         let course_id = req.body.course_id;
-        let section = new Section(undefined, name, code, adviser_id, course_id)
+        let section = new Section(undefined, name, code, year, adviser_id, course_id)
         section.add()
             .then(result => {
                 res.sendStatus(200)
@@ -56,7 +58,7 @@ router.route('/')
 router.route("/:id")
     .get(function (req, res, next) {
         let idsection = req.params.id;
-        let section = new Section(idsection, undefined, undefined, undefined, undefined);
+        let section = new Section(idsection, undefined, undefined, undefined, undefined, undefined);
         let q = section.viewBy({
             idsection: "LIKE"
         })
@@ -80,9 +82,10 @@ router.route("/:id")
         let idsection = req.params.id;
         let name = req.body.name;
         let code = req.body.code;
+        let year = req.body.year;
         let adviser_id = req.body.adviser_id;
         let course_id = req.body.course_id;
-        let section = new Section(undefined, name, code, adviser_id, course_id)
+        let section = new Section(undefined, name, code, year, adviser_id, course_id)
         section.change({
             idsection: {
                 value: idsection,
@@ -97,7 +100,7 @@ router.route("/:id")
     })
     .delete(function (req, res, next) {
         let id = req.params.id;
-        let section = new Section(id, undefined, undefined, undefined, undefined)
+        let section = new Section(id, undefined, undefined, undefined, undefined, undefined)
         section.deleteByID()
             .then(result => {
                 res.sendStatus(200)

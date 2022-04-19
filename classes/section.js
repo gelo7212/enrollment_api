@@ -1,11 +1,12 @@
 import { Section_Model } from '../models/section.js';
 import { Database } from '../classes/databse.js';
 class Section extends Database {
-    constructor(idsection, name, code, adviser_id, course_id) {
+    constructor(idsection, name, code, year, adviser_id, course_id) {
         super();
         this.idsection = idsection;
         this.name = name;
         this.code = code;
+        this.year = year;
         this.adviser_id = adviser_id;
         this.course_id = course_id;
     }
@@ -34,6 +35,7 @@ class Section extends Database {
         idsection: Number,
         name: String,
         code: String,
+        year:String,
         adviser_id: Number,
         course_id: Number
     }) {

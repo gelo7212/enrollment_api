@@ -1,8 +1,10 @@
 import express from 'express';
 import { Section_Subject } from '../classes/section_subject.js';
 import { Subject } from '../classes/subject.js';
+import { Student_Subject } from '../classes/Student.js';
 import { Section_Subject_Model } from '../models/section_subject.js';
 import { Subject_Model } from '../models/subject.js'
+import { Student_Subject_Model } from '../models/student.js';
 
 var router = express.Router();
 
@@ -107,6 +109,31 @@ router.route("/q/section")
             res.sendStatus(500)
         })
     })
+router.route("/q/subject-section/:id")
+    .delete(function (req, res, next) {
+        let id = req.params.id;
+        let section_subject = new Section_Subject(id, undefined, undefined, undefined, undefined, undefined, undefined, undefined)
+        section_subject.delete({
+            idsection_subject: "LIKE"
+        }).then(results => {
+            res.sendStatus(200)
+        }).catch(err => {
+            console.log(err)
+            res.sendStatus(500)
+        })
+    })
+    .get(function (req, res, next) {
+        let id = req.params.id;
+        let section_subject = new Section_Subject(id, undefined, undefined, undefined, undefined, undefined, undefined, undefined)
+        section_subject.viewBy({
+            idsection_subject: "LIKE"
+        }).then(results => {
+            res.json(results)
+        }).catch(err => {
+            console.log(err)
+            res.sendStatus(500)
+        })
+    })
 router.route("/section/:sectionID")
     .get(function (req, res, next) {
         let sectionID = req.params.sectionID;
@@ -139,4 +166,23 @@ router.route("/section/:sectionID")
                 res.sendStatus(500)
             })
     })
+
+router.route('/students/:student_id')
+    .get(function (req, res, next) {
+        let id = req.params.student_id;
+        let student_subject = new Student_Subject(undefined, id, undefined);
+        student_subject.viewByview({
+            idstudent: {
+                value: id,
+                operator: "LIKE"
+            }
+        }, Student_Subject_Model.student_subject_view).then(results => {
+            res.json(results)
+        }).catch(err => {
+            console.log(err)
+            res.sendStatus(500)
+        })
+
+    })
+
 export default router

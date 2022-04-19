@@ -8,6 +8,9 @@ const Section_Model = {
     code: function () {
         return 'code'
     }(),
+    year: function () {
+        return 'year'
+    }(),
     adviser_id: function () {
         return 'adviser_id'
     }(),

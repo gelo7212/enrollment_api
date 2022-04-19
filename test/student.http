@@ -1,19 +1,32 @@
 GET http://localhost:3000/students
-
+Cookie :_tokn_=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjczYjMxODdkZmU2NmY2YTdjZWY4NWZiNGE2MjhjNjI3ODIyMTY2NWQ4MmEyNzZjNjcxODUzYzcwYWJiMzNhN2YiLCJ1c2VyaWQiOiJra3ZyYzl5diIsImlhdCI6MTY1MDEyOTkwNSwiZXhwIjoxNjUwMTYyMzA1fQ.cUjbHRu4vQuRZqwI7DIt-A54MXxGyh_7PNEeZJYcf60; 
 ###
 
 GET http://localhost:3000/students/1
+###
+POST http://localhost:3000/students HTTP/1.1
+Content-Type: application/json
 
+{
+    "name":"justine",
+    "age":45,
+    "address":"sa puso mo",
+    "section_id":1,
+    "date_started":"2022-01-30"
+}
 ###
 
 POST http://localhost:3000/subjects HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"English",
-    "code":"eng-bst1",
+    "name":"Filipino",
+    "code":"Fil-01",
     "unit":2
 }
+
+###
+DELETE  http://localhost:3000/students/7
 
 ###
 PUT http://localhost:3000/students/1
@@ -22,15 +35,26 @@ Content-Type: application/json
 {
     "name":"juan",
     "age":45,
-    "address":"sa puso mo"
+    "address":"sa puso mho"
 }
-###
+### STUDENT SUBJECT
+#add subject to student
+
+POST  http://localhost:3000/students/3/q/subject/8
+### GET student subjects
+
+GET http://localhost:3000/subjects/students/3
+
+### Subjects
+#view subjects
 GET http://localhost:3000/subjects
 
 ###
+# by id 
 GET http://localhost:3000/subjects/3
 
 ###
+
 DELETE  http://localhost:3000/subjects/2
 
 ###
@@ -47,7 +71,7 @@ Content-Type: application/json
 
 
 
-###
+### Professors
 GET http://localhost:3000/professors
 
 ###
@@ -55,7 +79,7 @@ POST http://localhost:3000/professors
 Content-Type: application/json
 
 {
-    "name":"Gelo"
+    "name":"Jose"
 }
 
 ###
@@ -70,7 +94,7 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/professors/2
 
-### COURSE
+### COURSES
 GET http://localhost:3000/courses
 
 ###
@@ -106,8 +130,9 @@ POST http://localhost:3000/sections
 Content-Type: application/json
 
 {
-    "name":"a",
-    "code":"IV-a",
+    "name":"IV-b",
+    "code":"IV-b",
+    "year":4,
     "adviser_id":1,
     "course_id":1
 }
@@ -129,17 +154,40 @@ GET http://localhost:3000/sections/1
 
 
 ### section subject
+# add subject to section
 POST http://localhost:3000/subjects/section/1
 Content-Type: application/json
 
 {
     "subject_id":4,
-    "start":"08:00:00",
-    "end":"12:00:00",
-    "day":"MONDAY,TUESDAY,FRIDAY",
+    "start":"01:00:00",
+    "end":"4:00:00",
+    "day":"MONDAY,TUESDAY",
     "course_id":1,
     "prof_id":1
 }
 
-###
-GET  http://localhost:3000/subjects/q/section
+### get subject details by subject-section id 
+GET http://localhost:3000/subjects/q/subject-section/7
+
+### remove subject by subject-section id to subject-section table 
+DELETE   http://localhost:3000/subjects/q/subject-section/1
+
+### get details of all subject
+GET  http://localhost:3000/subjects/q/section/
+### by id
+GET  http://localhost:3000/subjects/section/1
+
+
+### generate account
+
+GET  http://localhost:3000/auth/random-account
+
+### login
+POST  http://localhost:3000/auth
+Content-Type: application/json
+
+{
+    "userid": "q5xg8i6b",
+  "password": "ymw26pdi"
+}

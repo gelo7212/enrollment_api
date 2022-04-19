@@ -1,9 +1,10 @@
 import { database } from '../functions/db_helper.js';
-import { Student_Model } from '../models/student.js';
+import { Student_Details_Model, Student_Model } from '../models/student.js';
+import { Student_Subject_Model } from '../models/student.js';
 import { Database } from '../classes/databse.js';
 class Student extends Database {
     constructor(idstudent, Name, age, address) {
-        super();
+        super()
         this.idstudent = idstudent
         this.Name = Name
         this.age = age
@@ -11,25 +12,15 @@ class Student extends Database {
     }
     add() {
         let table = Student_Model.table;
-        return this.create(table, this);
+        return super.add(table, this)
     }
-    deleteByID() {
+    delete(data = Student_Model) {
         let table = Student_Model.table;
-        return this.database().from(table).where(Student_Model.idstudent, 'LIKE', this.idstudent)
+        return super.delete(table, data, this)
     }
     change(data = Student_Model) {
         let table = Student_Model.table;
-        let query = this.update(table, this);
-        let keys = Object.keys(data).map((key) => key);
-        console.log(keys)
-        keys.forEach((v, i) => {
-            if (i == 0)
-                query.where(v, data[v].operator, data[v].value)
-            else
-                query.andWhere(v, data[v].operator, data[v].value)
-        })
-        console.log(query.toSQL().sql)
-        return query;
+        return super.change(table, data, this)
     }
     viewBy(data = {
         idstudent: String,
@@ -38,20 +29,69 @@ class Student extends Database {
         address: String,
     }) {
         let table = Student_Model.table;
-        Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-        let query = this.database().select('*').from(table)
-        let keys = Object.keys(this).map((key) => key);
-        keys.forEach((v, i) => {
-            if (i == 0)
-                query.where(v, data[v], this[v])
-            else
-                query.andWhere(v, data[v], this[v])
-        })
+        let query = super.viewBy(table, data, this);
+        return query.returning(Student_Model.idstudent);
+    }
+}
+
+class Student_Subject extends Database {
+    constructor(idstudent_subject, student_id, section_subject_id) {
+        super();
+        this.idstudent_subject = idstudent_subject;
+        this.student_id = student_id;
+        this.section_subject_id = section_subject_id;
+    }
+    add() {
+        let table = Student_Subject_Model.table;
+        return super.add(table, this)
+    }
+    delete(data = Student_Subject_Model) {
+        let table = Student_Subject_Model.table;
+        return super.delete(table, data, this)
+    }
+    change(data = Student_Subject_Model) {
+        let table = Student_Subject_Model.table;
+        return super.change(table, data, this)
+    }
+    viewBy(data = Student_Details_Model, table) {
+        let query = super.viewBy(table, data, this);
+        return query;
+    }
+    viewByview(data = Student_Subject_Model, table) {
+        let query = super.viewByview(table, data);
         return query;
     }
 }
 
 
+class Student_Details extends Database {
+    constructor(idstudent_section, student_id, section_id, date_started) {
+        super();
+        this.idstudent_section = idstudent_section
+        this.student_id = student_id
+        this.section_id = section_id
+        this.date_started = date_started
+    }
+    add() {
+        let table = Student_Details_Model.table;
+        return super.add(table, this)
+    }
+    delete(data = Student_Details_Model) {
+        let table = Student_Details_Model.table;
+        return super.delete(table, data, this)
+    }
+    change(data = Student_Details_Model) {
+        let table = Student_Details_Model.table;
+        return super.change(table, data, this)
+    }
+    viewBy(data = Student_Details_Model, table) {
+        let query = super.viewBy(table, data, this);
+        return query;
+    }
+}
+
 export {
-    Student
+    Student,
+    Student_Subject,
+    Student_Details
 }   
