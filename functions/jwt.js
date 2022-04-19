@@ -11,6 +11,7 @@ function encrypt(data, expiresIn, audience = undefined, issuer = undefined) {
         })
     })
 }
+
 function decrypt(token) {
     return new Promise((resolve, reject) => {
         let opts = {
